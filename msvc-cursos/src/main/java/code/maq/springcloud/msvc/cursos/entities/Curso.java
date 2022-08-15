@@ -1,6 +1,7 @@
 package code.maq.springcloud.msvc.cursos.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="cursos")
@@ -10,6 +11,7 @@ public class Curso {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotBlank
     private String nombre;
 
     public Long getId() {
