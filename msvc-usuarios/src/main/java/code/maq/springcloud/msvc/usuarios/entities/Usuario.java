@@ -1,6 +1,9 @@
 package code.maq.springcloud.msvc.usuarios.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="usuarios")
@@ -9,10 +12,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     private String nombre;
 
+    @Email
+    @NotEmpty
+    @Column(unique = true)
     private String email;
 
+    @NotBlank
     private String password;
 
     public Long getId() {
