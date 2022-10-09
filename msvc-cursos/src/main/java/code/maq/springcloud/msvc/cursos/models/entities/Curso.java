@@ -1,4 +1,6 @@
-package code.maq.springcloud.msvc.cursos.entities;
+package code.maq.springcloud.msvc.cursos.models.entities;
+
+import code.maq.springcloud.msvc.cursos.models.Usuario;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,8 +22,12 @@ public class Curso {
     @JoinColumn(name = "curso_id")
     private List<CursoUsuario> cursoUsuarios;
 
+    @Transient
+    private List<Usuario> usuarios;
+
     public Curso() {
         cursoUsuarios = new ArrayList<>();
+        usuarios = new ArrayList<>();
     }
 
     public Long getId() {
@@ -50,5 +56,13 @@ public class Curso {
 
     public void removeCursoUsuario(CursoUsuario cursoUsuario){
         cursoUsuarios.remove(cursoUsuario);
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 }

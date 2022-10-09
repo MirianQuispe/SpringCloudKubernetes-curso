@@ -1,6 +1,6 @@
 package code.maq.springcloud.msvc.cursos.services;
 
-import code.maq.springcloud.msvc.cursos.entities.Curso;
+import code.maq.springcloud.msvc.cursos.models.entities.Curso;
 
 import java.util.List;
 import java.util.Optional;

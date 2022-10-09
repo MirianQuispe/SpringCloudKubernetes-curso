@@ -1,4 +1,4 @@
-package code.maq.springcloud.msvc.cursos.entities;
+package code.maq.springcloud.msvc.cursos.models.entities;
 
 import javax.persistence.*;
 

@@ -1,6 +1,6 @@
 package code.maq.springcloud.msvc.cursos.controllers;
 
-import code.maq.springcloud.msvc.cursos.entities.Curso;
+import code.maq.springcloud.msvc.cursos.models.entities.Curso;
 import code.maq.springcloud.msvc.cursos.services.ICursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
