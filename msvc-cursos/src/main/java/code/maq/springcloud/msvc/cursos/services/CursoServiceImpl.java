@@ -1,5 +1,6 @@
 package code.maq.springcloud.msvc.cursos.services;
 
+import code.maq.springcloud.msvc.cursos.models.Usuario;
 import code.maq.springcloud.msvc.cursos.models.entities.Curso;
 import code.maq.springcloud.msvc.cursos.repositories.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,20 @@ public class CursoServiceImpl implements ICursoService{
     @Transactional
     public void eliminar(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Usuario> desasignarUsuario(Usuario usuario, Long cursoId) {
+        return Optional.empty();
     }
 }
