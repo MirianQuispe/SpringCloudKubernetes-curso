@@ -1,7 +1,9 @@
 package code.maq.springcloud.msvc.cursos.controllers;
 
+import code.maq.springcloud.msvc.cursos.models.Usuario;
 import code.maq.springcloud.msvc.cursos.models.entities.Curso;
 import code.maq.springcloud.msvc.cursos.services.ICursoService;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class CursoController {
@@ -25,7 +24,7 @@ public class CursoController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> detalleCurso(@PathVariable Long id){
-        Optional<Curso> cursoOptional = cursoService.porId(id);
+        Optional<Curso> cursoOptional = cursoService.porIdConUsuarios(id);
         if (cursoOptional.isPresent()){
             return ResponseEntity.ok(cursoOptional.get());
         }
@@ -61,6 +60,47 @@ public class CursoController {
         if(cursoOptional.isPresent()){
             cursoService.eliminar(id);
             return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+    @PutMapping("/asignar-usuario/{cursoId}")
+    public ResponseEntity<?> asignarCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
+        Optional<Usuario> o = null;
+        try {
+            o = cursoService.asignarUsuario(usuario, cursoId);
+        } catch (FeignException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("mensagge","Error en la comunicación: "+e.getMessage()));
+        }
+        if (o.isPresent()){
+            return ResponseEntity.status(HttpStatus.CREATED).body(o.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/crear-usuario/{cursoId}")
+    public ResponseEntity<?> crearCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
+        Optional<Usuario> o = null;
+        try {
+            o = cursoService.crearUsuario(usuario, cursoId);
+        } catch (FeignException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("mensagge","Error en la comunicación: "+e.getMessage()));
+        }
+        if (o.isPresent()){
+            return ResponseEntity.status(HttpStatus.CREATED).body(o.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/desasignar-usuario/{cursoId}")
+    public ResponseEntity<?> desasignarCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
+        Optional<Usuario> o = null;
+        try {
+            o = cursoService.desasignarUsuario(usuario, cursoId);
+        } catch (FeignException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("mensagge","Error en la comunicación: "+e.getMessage()));
+        }
+        if (o.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(o.get());
         }
         return ResponseEntity.notFound().build();
     }
