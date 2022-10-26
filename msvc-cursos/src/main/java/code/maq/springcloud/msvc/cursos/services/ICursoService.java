@@ -11,6 +11,7 @@ public interface ICursoService {
     Optional<Curso> porId(Long id);
     Curso guardar(Curso curso);
     void eliminar(Long id);
+    void eliminarUsuarioPorCurso(Long usuarioId);
 
     Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId);
     Optional<Usuario> crearUsuario(Usuario usuario, Long cursoId);

@@ -64,7 +64,7 @@ public class CursoController {
         return ResponseEntity.notFound().build();
     }
     @PutMapping("/asignar-usuario/{cursoId}")
-    public ResponseEntity<?> asignarCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
+    public ResponseEntity<?> asignarUsuarioEnCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
         Optional<Usuario> o = null;
         try {
             o = cursoService.asignarUsuario(usuario, cursoId);
@@ -78,7 +78,7 @@ public class CursoController {
     }
 
     @PostMapping("/crear-usuario/{cursoId}")
-    public ResponseEntity<?> crearCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
+    public ResponseEntity<?> crearUsuarioEnCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
         Optional<Usuario> o = null;
         try {
             o = cursoService.crearUsuario(usuario, cursoId);
@@ -91,8 +91,8 @@ public class CursoController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/desasignar-usuario/{cursoId}")
-    public ResponseEntity<?> desasignarCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
+    @DeleteMapping("/desasignar-usuario/{cursoId}")
+    public ResponseEntity<?> desasignarUsuarioDeCurso(@PathVariable Long cursoId, @RequestBody Usuario usuario){
         Optional<Usuario> o = null;
         try {
             o = cursoService.desasignarUsuario(usuario, cursoId);
@@ -103,6 +103,11 @@ public class CursoController {
             return ResponseEntity.status(HttpStatus.OK).body(o.get());
         }
         return ResponseEntity.notFound().build();
+    }
+    @DeleteMapping("/eliminar-usuario/{usuarioId}")
+    public ResponseEntity<?> eliminarCursoUsuarioPorUsuarioId(@PathVariable Long usuarioId){
+        cursoService.eliminarUsuarioPorCurso(usuarioId);
+        return ResponseEntity.noContent().build();
     }
 
     private static ResponseEntity<Map<String, String>> validarCampos(BindingResult result) {
