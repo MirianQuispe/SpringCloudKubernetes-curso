@@ -65,6 +65,7 @@ public class UsuarioController {
         Optional<Usuario> usuarioOptional = usuarioService.porId(id);
         if (usuarioOptional.isPresent()) {
             usuarioService.eliminar(id);
+
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

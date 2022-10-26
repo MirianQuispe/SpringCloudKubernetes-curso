@@ -1,5 +1,6 @@
 package code.maq.springcloud.msvc.usuarios.services;
 
+import code.maq.springcloud.msvc.usuarios.clients.ICursoClientRest;
 import code.maq.springcloud.msvc.usuarios.entities.Usuario;
 import code.maq.springcloud.msvc.usuarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class UsuarioServiceImpl implements IUsuarioService{
 
     @Autowired
     UsuarioRepository repository;
+    @Autowired
+    private ICursoClientRest CursoClient;
 
     @Override
     @Transactional(readOnly = true)
@@ -37,6 +40,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
     @Transactional
     public void eliminar(Long id) {
         repository.deleteById(id);
+        CursoClient.eliminarCursoUsuarioPorUsuarioId(id);
     }
 
     @Override
